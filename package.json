@@ -1,0 +1,48 @@
+{
+    "name": "spm-modules-build",
+    "description": "Build Business Modules",
+    "version": "0.2.3",
+    "homepage": "https://github.com/duhaibin/spm-modules-build",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/duhaibin/spm-modules-build.git"
+    },
+    "bugs": {
+        "url": "https://github.com/duhaibin/spm-modules-build/issues"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/duhaibin/spm-modules-build/blob/master/LICENSE-MIT"
+        }
+    ],
+    "bin": {
+        "spm-modules-build": "bin/spm-modules-build"
+    },
+    "keywords": [
+        "spmplugin", "build", "modules build"
+    ],
+    "scripts": {
+        "postinstall": "node scripts/postinstall.js",
+        "uninstall": "node scripts/uninstall.js"
+    },
+    "dependencies": {
+        "spm-grunt": "~0.1.2",
+        "commander": "~1.1.1",
+        "grunt-cmd-transport": "~0.2.9",
+        "grunt-cmd-concat": "~0.2.5",
+        "grunt-contrib-uglify": "~0.1.2",
+        "grunt-contrib-copy": "~0.4.1",
+        "grunt-contrib-cssmin": "~0.6.0",
+        "grunt-contrib-clean": "~0.4.0",
+        "grunt-contrib-compress": "~0.5.0",
+        "grunt-md5": "~0.1.10"
+    },
+    "readmeFilename": "README.md",
+    "_id": "spm-modules-build@0.2.3",
+    "dist": {
+        "shasum": "d6f41ed5e29d22326c08ca2251eb51dd2b032a8b"
+    },
+    "_from": "spm-modules-build@",
+    "_resolved": "https://registry.npmjs.org/spm-modules-build/-/spm-modules-build-0.2.3.tgz"
+}
