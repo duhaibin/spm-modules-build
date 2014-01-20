@@ -1,15 +1,25 @@
 #!/usr/bin/env node
 
-var chaosBuild = require('..');
-var program = require('commander');
+var build = require('..');
+var commander = require('commander');
 
-program.version(require('../package').version)
+commander.usage('[dir] [options]');
+commander.version(require('../package').version);
 
-program.usage('[dir] [options]')
-    .option('-C, --config-file [filename]', 'seajs config file: [filename]')
-    .option('-O, --output-directory [dist]', 'build output directory: [dist], SeaJS common modules should be here')
+
+commander
+    .option('-c, --config-file [filename]', 'seajs config file: [filename]')
+    .option('-p, --package-file [filename]', 'package.json file: [filename]')
+    .option('-o, --output-directory [dist]', 'build output directory: [dist], SeaJS common modules should be here')
+    .option('-m, --modules [modules]', 'which files need to be build')
     .option('--gzip [gzipConfig]', '"--gzip all" will gzip all file in [dist], "--gzip current" will only gzip [dir] ');
 
-program.parse(process.argv);
+commander.parse(process.argv);
 
-chaosBuild(program);
+console.log();
+var config = {};
+config.configFile = commander.configFile;
+config.packageFile = commander.packageFile;
+config.outputDir = commander.outputDirectory;
+config.modules = commander.modules || "**/*";
+build(config);
