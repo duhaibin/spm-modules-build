@@ -35,7 +35,26 @@ exports = module.exports = function (options) {
 
   		grunt.task.options({'done': function() { 
         	grunt.log.writeln('success build finished.');
-      	}});
+      }});
+
+      grunt.registerInitTask('module-build', [
+        'clean:build', // delete build direcotry first
+        'spm-install', // install dependencies
+        // build css
+        'transport:src',  // src/* -> .build/src/*
+        'concat:css',   // .build/src/*.css -> .build/tmp/*.css
+        // build js (must be invoke after css build)
+        'transport:css',  // .build/tmp/*.css -> .build/src/*.css.js
+        'concat:js',  // .build/src/* -> .build/dist/*.js
+        // to ./build/dist
+        'copy:build',
+        'cssmin:css',   // .build/tmp/*.css -> .build/dist/*.css
+        'uglify:js',  // .build/tmp/*.js -> .build/dist/*.js
+        'clean:dist',
+        'copy:dist',  // .build/dist -> dist
+        'clean:build',
+        'spm-newline'
+      ]);
 
 
   	});
@@ -59,7 +78,29 @@ function parseOptions (options) {
 	return options;
 }
 
-function loadTasks () {
-	
+function loadTasks(grunt) {
+    
+    var tasks = [
+        'grunt-cmd-transport',
+        'grunt-cmd-concat',
+        'grunt-contrib-uglify',
+        'grunt-contrib-copy',
+        'grunt-contrib-cssmin',
+        'grunt-contrib-clean',
+        'grunt-contrib-compress',
+        'grunt-md5'
+    ]
+
+    tasks.forEach(function (task) {
+      var taskdir = path.join(__dirname, 'node_modules', task, 'tasks');
+      if (grunt.file.exists(taskdir)) {
+        grunt.loadTasks(taskdir);
+      }
+    });
+
+    grunt.loadTasks(path.join(__dirname, 'tasks'));
 }
+
+exports.loadTasks = loadTasks;
+exports.getConfig = getConfig;
 
